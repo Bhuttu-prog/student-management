@@ -52,12 +52,4 @@ button {
   width: 100px;
 }
 
-.add-student-modal__actions button:nth-child(1) {
-  background-color: #f44336; /* Red color for Cancel */
-  color: #fff;
-}
 
-.add-student-modal__actions button:nth-child(2) {
-  background-color: #4caf50; /* Green color for Add */
-  color: #fff;
-}
