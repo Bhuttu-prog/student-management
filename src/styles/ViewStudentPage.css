@@ -1,0 +1,48 @@
+.view-student-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  width: 500px;
+  max-height: 80%; /* Limit the maximum height */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-student-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-student-modal__content {
+  overflow-y: auto; /* Enables vertical scrolling */
+  flex-grow: 1; /* Allows the content to take remaining space */
+  padding-bottom: 20px; /* Ensure there is padding for the buttons at the bottom */
+}
+
+.view-student-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 20px;
+}
+
+button {
+  width: 100px;
+}
+
+.text-field {
+  margin-bottom: 15px;
+}

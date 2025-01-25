@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../firebaseConfig';
-import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs,updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 import EditStudentPage from './EditStudentPage'; // Import the EditStudentPage modal
-import '../styles/StudentPage.css'; // Custom Styles (if any)
+import ViewStudentPage from './ViewStudentPage'; // Import the ViewStudentPage modal
+import '../styles/StudentPage.css'; // Custom Styles
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([]);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openViewModal, setOpenViewModal] = useState(false); // State for View Modal
   const [selectedStudent, setSelectedStudent] = useState(null);
   const navigate = useNavigate();
 
@@ -48,6 +50,11 @@ const StudentsPage = () => {
   const handleEdit = (student) => {
     setSelectedStudent(student);
     setOpenEditModal(true); // Open the edit modal when edit button is clicked
+  };
+
+  const handleView = (student) => {
+    setSelectedStudent(student);
+    setOpenViewModal(true); // Open the view modal when view button is clicked
   };
 
   const handleUpdateStudent = async (updatedStudent) => {
@@ -109,7 +116,7 @@ const StudentsPage = () => {
                     variant="outlined"
                     color="info"
                     startIcon={<FaEye />}
-                    onClick={() => alert(`View details for ${student.name}`)}
+                    onClick={() => handleView(student)} // Open view modal on view button click
                   >
                     View
                   </Button>
@@ -143,6 +150,15 @@ const StudentsPage = () => {
           onClose={() => setOpenEditModal(false)} // Close modal when cancel button is clicked
           student={selectedStudent}
           onUpdate={handleUpdateStudent} // Pass the handleUpdateStudent function to update the student
+        />
+      )}
+
+      {/* View Student Modal (Page) */}
+      {selectedStudent && (
+        <ViewStudentPage
+          open={openViewModal}
+          onClose={() => setOpenViewModal(false)} // Close modal when cancel button is clicked
+          student={selectedStudent}
         />
       )}
     </div>
