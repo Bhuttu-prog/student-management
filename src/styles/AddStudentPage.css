@@ -1,131 +1,144 @@
-/* Main page container */
-.add-student-page {
+/* General Container Styling */
+.add-student-container {
+    margin-top: 20px;
     padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
   }
   
-  .add-student-page__header {
+  .add-student-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
   }
   
-  .add-student-page__title {
-    font-size: 24px;
+  .add-student-header .MuiTypography-h4 {
     font-weight: bold;
+    color: #333;
   }
   
-  .add-student-page__actions {
+  .add-student-buttons {
     display: flex;
-    gap: 10px;
-  }
-  
-  .add-student-page__form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 15px;
-    max-width: 800px;
-    margin: 0 auto;
   }
   
-  .form-field {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-field__label {
+  .add-student-buttons .MuiButton-root {
     font-size: 14px;
-    margin-bottom: 5px;
+    font-weight: 600;
   }
   
-  .form-field__input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+  .add-student-container .MuiContainer-root {
+    padding: 20px;
+  }
+  
+  /* Form Elements */
+  .add-student-container form {
+    display: block;
+  }
+  
+  .MuiTextField-root {
+    margin-bottom: 15px;
+  }
+  
+  /* Material UI button sizes and custom button styling */
+  .MuiButton-contained {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
     border-radius: 4px;
   }
   
-  .form-field__input:focus {
-    outline: none;
-    border-color: #007bff;
+  .add-student-buttons .MuiButton-root {
+    min-width: 150px;
   }
   
-  .form-field__error {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
+  .MuiButton-containedPrimary {
+    background-color: #1976d2; /* Blue */
   }
   
-  .add-student-page__buttons {
-    display: flex;
-    justify-content: space-between;
+  .MuiButton-containedSecondary {
+    background-color: #f44336; /* Red */
+  }
+  
+  .MuiButton-contained:hover {
+    background-color: #1565c0; /* Darker Blue for hover */
+  }
+  
+  .MuiButton-outlinedSecondary {
+    color: #f44336;
+    border-color: #f44336;
+  }
+  
+  .MuiButton-outlinedSecondary:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+  }
+  
+  /* Grid system adjustments */
+  .MuiGrid-container {
     margin-top: 20px;
   }
   
-  .button {
-    padding: 10px 20px;
+  .MuiGrid-item {
+    margin-bottom: 20px;
+  }
+  
+  /* Error handling and custom helper text */
+  .MuiFormHelperText-root {
+    font-size: 12px;
+    color: #d32f2f;
+    margin-top: 5px;
+  }
+  
+  /* Custom input field styling */
+  .MuiTextField-root input {
     font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
   }
   
-  .button--primary {
-    background-color: #007bff;
-    color: white;
+  /* Typography styling for heading */
+  .add-student-header .MuiTypography-root {
+    font-size: 32px;
+    color: #333;
+    font-weight: 700;
   }
   
-  .button--primary:hover {
-    background-color: #0056b3;
+  /* Container and form layout */
+  .add-student-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
   }
   
-  .button--secondary {
-    background-color: #6c757d;
-    color: white;
+  .add-student-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
-  .button--secondary:hover {
-    background-color: #5a6268;
-  }
-  
-  .button--danger {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .button--danger:hover {
-    background-color: #c82333;
-  }
-  
-  .add-student-page__actions button,
-  .add-student-page__buttons button {
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 4px;
-  }
-  
-  .add-student-page__form .form-field {
-    width: 100%;
-  }
-  
-  .add-student-page__form .form-field:nth-child(even) {
-    padding-left: 10px;
-  }
-  
-  /* Media Queries for smaller screens */
-  @media (max-width: 768px) {
-    .add-student-page__form {
-      grid-template-columns: 1fr;
+  /* Make sure the form is responsive */
+  @media (max-width: 600px) {
+    .add-student-container {
+      padding: 15px;
     }
   
-    .add-student-page__header {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .add-student-page__buttons {
+    .add-student-header {
       flex-direction: column;
       gap: 10px;
+      align-items: flex-start;
+    }
+  
+    .add-student-buttons {
+      flex-direction: column;
+    }
+  
+    .add-student-buttons .MuiButton-root {
+      min-width: 100%;
+    }
+  
+    .MuiTextField-root {
+      margin-bottom: 10px;
     }
   }
   

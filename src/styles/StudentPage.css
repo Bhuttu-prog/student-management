@@ -1,115 +1,155 @@
-/* Main container for the student list page */
+/* General Container Styling */
 .student-list-container {
+    margin-top: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
-    min-height: 100vh;
+    background-color: #f5f5f5;
+    border-radius: 8px;
   }
   
-  /* Title of the student list page */
   .student-list-container__title {
-    font-size: 24px;
+    font-size: 32px;
+    font-weight: bold;
     color: #333;
     margin-bottom: 20px;
   }
   
-  /* Button container for Logout and Add Student */
+  /* Buttons */
   .student-list-container__buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 20px;
     margin-bottom: 20px;
   }
   
-  /* General button styles */
   .student-list-container__button {
-    padding: 10px 20px;
     font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 4px;
   }
   
-  /* Primary button style (Add Student) */
   .student-list-container__button--primary {
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: #1976d2; /* Blue */
+    color: #fff;
   }
   
   .student-list-container__button--primary:hover {
-    background-color: #0056b3;
+    background-color: #1565c0;
   }
   
-  /* Danger button style (Logout) */
   .student-list-container__button--danger {
-    background-color: #dc3545;
-    color: white;
-    border: none;
+    background-color: #f44336; /* Red */
+    color: #fff;
   }
   
   .student-list-container__button--danger:hover {
-    background-color: #c82333;
+    background-color: #d32f2f;
   }
   
-  /* Table styling */
+  /* Table Styling */
   .student-list-container__table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
   }
   
-  /* Table header styling */
   .student-list-container__table th,
   .student-list-container__table td {
     padding: 12px 20px;
     text-align: left;
-    border: 1px solid #ddd;
   }
   
-  /* Table header background */
   .student-list-container__table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
+    background-color: #1976d2;
+    color: #fff;
+    font-weight: 600;
   }
   
-  /* Zebra striping for table rows */
   .student-list-container__table tr:nth-child(even) {
     background-color: #f9f9f9;
   }
   
-  /* Hover effect for table rows */
   .student-list-container__table tr:hover {
     background-color: #f1f1f1;
   }
   
-  /* Icon button styles (view, edit, delete) */
+  .student-list-container__table td {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Action Icons */
   .student-list-container__icon {
+    font-size: 20px;
     cursor: pointer;
-    font-size: 18px;
     margin-right: 10px;
+    color: #1976d2;
+    transition: color 0.3s;
   }
   
-  /* Specific icon styles */
-  .student-list-container__icon--view {
-    color: #17a2b8;
-  }
-  
-  .student-list-container__icon--view:hover {
-    color: #138496;
+  .student-list-container__icon:hover {
+    color: #1565c0;
   }
   
   .student-list-container__icon--edit {
-    color: #ffc107;
+    color: #ffa500;
   }
   
   .student-list-container__icon--edit:hover {
-    color: #e0a800;
+    color: #ff8c00;
   }
   
   .student-list-container__icon--delete {
-    color: #dc3545;
+    color: #f44336;
   }
   
   .student-list-container__icon--delete:hover {
-    color: #c82333;
+    color: #d32f2f;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .student-list-container__title {
+      font-size: 28px;
+    }
+  
+    .student-list-container__buttons {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .student-list-container__button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .student-list-container__table th,
+    .student-list-container__table td {
+      padding: 10px;
+      font-size: 12px;
+    }
+  
+    .student-list-container__icon {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .student-list-container__title {
+      font-size: 24px;
+    }
+  
+    .student-list-container__table th,
+    .student-list-container__table td {
+      padding: 8px;
+      font-size: 10px;
+    }
+  
+    .student-list-container__icon {
+      font-size: 16px;
+    }
   }
   

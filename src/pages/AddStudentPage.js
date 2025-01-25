@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { addDoc, collection } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../firebaseConfig';
-import '../styles/AddStudentPage.css'; // Import the updated styles
+import { Button, TextField, Grid, Typography, Container } from '@mui/material';
+import { Logout } from '@mui/icons-material';
+import '../styles/AddStudentPage.css'; // Custom Styles (if any)
 
 const AddStudentPage = () => {
   const navigate = useNavigate();
@@ -36,188 +38,213 @@ const AddStudentPage = () => {
   };
 
   return (
-    <div className="add-student-page">
-      <div className="add-student-page__header">
-        <h2 className="add-student-page__title">Add Student</h2>
-        <div className="add-student-page__actions">
-          <button
-            className="button button--primary"
+    <Container maxWidth="sm" className="add-student-container">
+      <div className="add-student-header">
+        <Typography variant="h4" gutterBottom>Add Student</Typography>
+        <div className="add-student-buttons">
+          <Button
+            variant="contained"
+            color="primary"
             onClick={() => navigate('/student-list')}
           >
             Student List
-          </button>
-          <button
-            className="button button--danger"
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<Logout />}
             onClick={handleLogout}
           >
             Logout
-          </button>
+          </Button>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="add-student-page__form">
-        <div className="form-field">
-          <label className="form-field__label">Name</label>
-          <input
-            type="text"
-            className="form-field__input"
-            {...register('name', { required: 'Name is required' })}
-          />
-          {errors.name && <span className="form-field__error">{errors.name.message}</span>}
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Name"
+              {...register('name', { required: 'Name is required' })}
+              error={Boolean(errors.name)}
+              helperText={errors.name && errors.name.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Class</label>
-          <input
-            type="text"
-            className="form-field__input"
-            {...register('class', { required: 'Class is required' })}
-          />
-          {errors.class && <span className="form-field__error">{errors.class.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Class"
+              {...register('class', { required: 'Class is required' })}
+              error={Boolean(errors.class)}
+              helperText={errors.class && errors.class.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Section</label>
-          <input
-            type="text"
-            className="form-field__input"
-            {...register('section', { required: 'Section is required' })}
-          />
-          {errors.section && <span className="form-field__error">{errors.section.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Section"
+              {...register('section', { required: 'Section is required' })}
+              error={Boolean(errors.section)}
+              helperText={errors.section && errors.section.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Roll Number</label>
-          <input
-            type="text"
-            className="form-field__input"
-            {...register('rollNumber', {
-              required: 'Roll Number is required',
-              pattern: {
-                value: /^\d+$/,
-                message: 'Roll Number must be a number',
-              },
-            })}
-          />
-          {errors.rollNumber && <span className="form-field__error">{errors.rollNumber.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Roll Number"
+              {...register('rollNumber', {
+                required: 'Roll Number is required',
+                pattern: {
+                  value: /^\d+$/,
+                  message: 'Roll Number must be a number',
+                },
+              })}
+              error={Boolean(errors.rollNumber)}
+              helperText={errors.rollNumber && errors.rollNumber.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Age</label>
-          <input
-            type="number"
-            className="form-field__input"
-            {...register('age', {
-              required: 'Age is required',
-              min: { value: 5, message: 'Age must be at least 5' },
-              max: { value: 20, message: 'Age must not exceed 20' },
-            })}
-          />
-          {errors.age && <span className="form-field__error">{errors.age.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Age"
+              type="number"
+              {...register('age', {
+                required: 'Age is required',
+                min: { value: 5, message: 'Age must be at least 5' },
+                max: { value: 20, message: 'Age must not exceed 20' },
+              })}
+              error={Boolean(errors.age)}
+              helperText={errors.age && errors.age.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Address</label>
-          <textarea
-            className="form-field__input"
-            {...register('address', { required: 'Address is required' })}
-          ></textarea>
-          {errors.address && <span className="form-field__error">{errors.address.message}</span>}
-        </div>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Address"
+              multiline
+              rows={4}
+              {...register('address', { required: 'Address is required' })}
+              error={Boolean(errors.address)}
+              helperText={errors.address && errors.address.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Phone</label>
-          <input
-            type="tel"
-            className="form-field__input"
-            {...register('phone', {
-              required: 'Phone is required',
-              pattern: { value: /^\d{10}$/, message: 'Phone must be 10 digits' },
-            })}
-          />
-          {errors.phone && <span className="form-field__error">{errors.phone.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Phone"
+              type="tel"
+              {...register('phone', {
+                required: 'Phone is required',
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: 'Phone must be 10 digits',
+                },
+              })}
+              error={Boolean(errors.phone)}
+              helperText={errors.phone && errors.phone.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Parent Name</label>
-          <input
-            type="text"
-            className="form-field__input"
-            {...register('parentName', { required: 'Parent Name is required' })}
-          />
-          {errors.parentName && <span className="form-field__error">{errors.parentName.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Parent Name"
+              {...register('parentName', { required: 'Parent Name is required' })}
+              error={Boolean(errors.parentName)}
+              helperText={errors.parentName && errors.parentName.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Parent Phone</label>
-          <input
-            type="tel"
-            className="form-field__input"
-            {...register('parentPhone', {
-              required: 'Parent Phone is required',
-              pattern: {
-                value: /^\d{10}$/,
-                message: 'Parent Phone must be 10 digits',
-              },
-            })}
-          />
-          {errors.parentPhone && <span className="form-field__error">{errors.parentPhone.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Parent Phone"
+              type="tel"
+              {...register('parentPhone', {
+                required: 'Parent Phone is required',
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: 'Parent Phone must be 10 digits',
+                },
+              })}
+              error={Boolean(errors.parentPhone)}
+              helperText={errors.parentPhone && errors.parentPhone.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Email</label>
-          <input
-            type="email"
-            className="form-field__input"
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Invalid email address',
-              },
-            })}
-          />
-          {errors.email && <span className="form-field__error">{errors.email.message}</span>}
-        </div>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Email"
+              type="email"
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Invalid email address',
+                },
+              })}
+              error={Boolean(errors.email)}
+              helperText={errors.email && errors.email.message}
+            />
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Gender</label>
-          <select
-            className="form-field__input"
-            {...register('gender', { required: 'Gender is required' })}
-          >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.gender && <span className="form-field__error">{errors.gender.message}</span>}
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Gender"
+              select
+              {...register('gender', { required: 'Gender is required' })}
+              error={Boolean(errors.gender)}
+              helperText={errors.gender && errors.gender.message}
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </TextField>
+          </Grid>
 
-        <div className="form-field">
-          <label className="form-field__label">Date of Birth</label>
-          <input
-            type="date"
-            className="form-field__input"
-            {...register('dob', { required: 'Date of Birth is required' })}
-          />
-          {errors.dob && <span className="form-field__error">{errors.dob.message}</span>}
-        </div>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Date of Birth"
+              type="date"
+              {...register('dob', { required: 'Date of Birth is required' })}
+              error={Boolean(errors.dob)}
+              helperText={errors.dob && errors.dob.message}
+            />
+          </Grid>
 
-        <div className="add-student-page__buttons">
-          <button type="submit" className="button button--primary">
-            Submit
-          </button>
-          <button
-            type="button"
-            className="button button--secondary"
-            onClick={() => navigate('/student-list')}
-          >
-            Cancel
-          </button>
-        </div>
+          <Grid item xs={12} className="add-student-buttons">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Submit
+            </Button>
+            <Button
+              type="button"
+              variant="outlined"
+              color="secondary"
+              size="large"
+              onClick={() => navigate('/student-list')}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-    </div>
+    </Container>
   );
 };
 
