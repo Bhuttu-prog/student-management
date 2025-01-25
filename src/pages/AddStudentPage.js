@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Modal, Box, Button, TextField, MenuItem, FormHelperText } from '@mui/material';
+import { Modal, Box, Button, TextField, MenuItem } from '@mui/material';
 import { FaTimes } from 'react-icons/fa';
 import { db } from '../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import '../styles/AddStudentPage.css'; // Custom styles
 
-const AddStudentPage = ({ open, onClose }) => {
+const AddStudentPage = ({ open, onClose, onStudentAdded }) => {
   const [name, setName] = useState('');
   const [classValue, setClassValue] = useState('');
   const [section, setSection] = useState('');
@@ -37,8 +37,8 @@ const AddStudentPage = ({ open, onClose }) => {
       validationErrors.section = 'Section is required';
       isValid = false;
     }
-    if (!rollNumber) {
-      validationErrors.rollNumber = 'Roll number is required';
+    if (!rollNumber || rollNumber <= 0) {
+      validationErrors.rollNumber = 'Valid roll number is required';
       isValid = false;
     }
     if (!age || isNaN(age) || age <= 0) {
@@ -78,6 +78,22 @@ const AddStudentPage = ({ open, onClose }) => {
     return isValid;
   };
 
+  const resetFields = () => {
+    setName('');
+    setClassValue('');
+    setSection('');
+    setRollNumber('');
+    setAge('');
+    setAddress('');
+    setPhone('');
+    setParentName('');
+    setParentPhone('');
+    setEmail('');
+    setGender('');
+    setDob('');
+    setErrors({});
+  };
+
   const handleAddStudent = async () => {
     if (!validateFields()) return; // Only proceed if the form is valid
 
@@ -97,8 +113,10 @@ const AddStudentPage = ({ open, onClose }) => {
     };
 
     try {
-      await addDoc(collection(db, 'students'), newStudent);
+      const docRef = await addDoc(collection(db, 'students'), newStudent);
       alert('Student added successfully!');
+      onStudentAdded({ id: docRef.id, ...newStudent }); // Send the new student back to StudentsPage
+      resetFields(); // Clear form fields
       onClose(); // Close modal after adding
     } catch (error) {
       console.error('Error adding student:', error);
@@ -114,6 +132,7 @@ const AddStudentPage = ({ open, onClose }) => {
             className="close-button"
             onClick={onClose}
             startIcon={<FaTimes />}
+            aria-label="Close Add Student Modal"
           />
         </div>
         <div className="add-student-modal__content">
@@ -158,6 +177,7 @@ const AddStudentPage = ({ open, onClose }) => {
             onChange={(e) => setRollNumber(e.target.value)}
             margin="normal"
             className="add-student-modal__input"
+            type="number"
             error={!!errors.rollNumber}
             helperText={errors.rollNumber}
           />
@@ -182,7 +202,7 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             multiline
-            rows={4}
+            rows={3}
             error={!!errors.address}
             helperText={errors.address}
           />
@@ -258,9 +278,7 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            InputLabelProps={{ shrink: true }}
             error={!!errors.dob}
             helperText={errors.dob}
           />

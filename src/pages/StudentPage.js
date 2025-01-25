@@ -6,35 +6,40 @@ import { collection, getDocs, updateDoc, deleteDoc, doc } from 'firebase/firesto
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 import { Logout } from '@mui/icons-material';
-import EditStudentPage from './EditStudentPage'; // Import the EditStudentPage modal
-import ViewStudentPage from './ViewStudentPage'; // Import the ViewStudentPage modal
-import AddStudentPage from './AddStudentPage'; // Import the AddStudentPage modal
-import '../styles/StudentPage.css'; // Custom Styles
+import EditStudentPage from './EditStudentPage';
+import ViewStudentPage from './ViewStudentPage';
+import AddStudentPage from './AddStudentPage';
+import '../styles/StudentPage.css';
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([]);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [openViewModal, setOpenViewModal] = useState(false); // State for View Modal
-  const [openAddModal, setOpenAddModal] = useState(false); // State for Add Student Modal
+  const [openViewModal, setOpenViewModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchStudents = async () => {
+  // Function to fetch students from Firestore
+  const fetchStudents = async () => {
+    try {
       const studentsCollection = collection(db, 'students');
       const studentSnapshot = await getDocs(studentsCollection);
       const studentList = studentSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setStudents(studentList);
-    };
+    } catch (error) {
+      console.error('Error fetching students:', error);
+    }
+  };
 
-    fetchStudents();
+  useEffect(() => {
+    fetchStudents(); // Initial fetch
   }, []);
 
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, 'students', id));
-      setStudents((prev) => prev.filter((student) => student.id !== id));
       alert('Student deleted successfully!');
+      fetchStudents(); // Refetch data on delete success
     } catch (error) {
       console.error('Error deleting student:', error);
     }
@@ -51,30 +56,37 @@ const StudentsPage = () => {
 
   const handleEdit = (student) => {
     setSelectedStudent(student);
-    setOpenEditModal(true); // Open the edit modal when edit button is clicked
+    setOpenEditModal(true);
   };
 
   const handleView = (student) => {
     setSelectedStudent(student);
-    setOpenViewModal(true); // Open the view modal when view button is clicked
+    setOpenViewModal(true);
   };
 
   const handleUpdateStudent = async (updatedStudent) => {
     try {
       const studentRef = doc(db, 'students', updatedStudent.id);
       await updateDoc(studentRef, updatedStudent);
-      setStudents((prev) =>
-        prev.map((student) => (student.id === updatedStudent.id ? updatedStudent : student))
-      );
-      setOpenEditModal(false); // Close the edit modal after updating
+      alert('Student updated successfully!');
+      fetchStudents(); // Refetch data on update success
+      setOpenEditModal(false);
     } catch (error) {
       console.error('Error updating student:', error);
     }
   };
 
-  // Function to handle the closing of the Add Student modal
+  const handleStudentAdded = async () => {
+    try {
+      fetchStudents(); // Refetch data on add success
+      setOpenAddModal(false);
+    } catch (error) {
+      console.error('Error fetching updated students after addition:', error);
+    }
+  };
+
   const handleAddStudentClose = () => {
-    setOpenAddModal(false); // Close the add student modal
+    setOpenAddModal(false);
   };
 
   return (
@@ -92,7 +104,7 @@ const StudentsPage = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setOpenAddModal(true)} // Open the Add Student modal
+          onClick={() => setOpenAddModal(true)}
         >
           Add Student
         </Button>
@@ -124,7 +136,7 @@ const StudentsPage = () => {
                       variant="outlined"
                       color="info"
                       startIcon={<FaEye />}
-                      onClick={() => handleView(student)} // Open view modal on view button click
+                      onClick={() => handleView(student)}
                     >
                       View
                     </Button>
@@ -132,7 +144,7 @@ const StudentsPage = () => {
                       variant="outlined"
                       color="warning"
                       startIcon={<FaEdit />}
-                      onClick={() => handleEdit(student)} // Open edit modal on edit button click
+                      onClick={() => handleEdit(student)}
                     >
                       Edit
                     </Button>
@@ -152,27 +164,31 @@ const StudentsPage = () => {
         </Table>
       </TableContainer>
 
-      {/* Edit Student Modal (Page) */}
+      {/* Edit Student Modal */}
       {selectedStudent && (
         <EditStudentPage
           open={openEditModal}
-          onClose={() => setOpenEditModal(false)} // Close modal when cancel button is clicked
+          onClose={() => setOpenEditModal(false)}
           student={selectedStudent}
-          onUpdate={handleUpdateStudent} // Pass the handleUpdateStudent function to update the student
+          onUpdate={handleUpdateStudent}
         />
       )}
 
-      {/* View Student Modal (Page) */}
+      {/* View Student Modal */}
       {selectedStudent && (
         <ViewStudentPage
           open={openViewModal}
-          onClose={() => setOpenViewModal(false)} // Close modal when cancel button is clicked
+          onClose={() => setOpenViewModal(false)}
           student={selectedStudent}
         />
       )}
 
       {/* Add Student Modal */}
-      <AddStudentPage open={openAddModal} onClose={handleAddStudentClose} />
+      <AddStudentPage
+        open={openAddModal}
+        onClose={handleAddStudentClose}
+        onStudentAdded={handleStudentAdded}
+      />
     </div>
   );
 };
