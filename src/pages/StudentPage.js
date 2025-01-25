@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../firebaseConfig';
-import { collection, getDocs,updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 import EditStudentPage from './EditStudentPage'; // Import the EditStudentPage modal
 import ViewStudentPage from './ViewStudentPage'; // Import the ViewStudentPage modal
@@ -112,30 +112,32 @@ const StudentsPage = () => {
                 <TableCell>{student.section}</TableCell>
                 <TableCell>{student.rollNumber}</TableCell>
                 <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="info"
-                    startIcon={<FaEye />}
-                    onClick={() => handleView(student)} // Open view modal on view button click
-                  >
-                    View
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="warning"
-                    startIcon={<FaEdit />}
-                    onClick={() => handleEdit(student)} // Open edit modal on edit button click
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    startIcon={<FaTrash />}
-                    onClick={() => handleDelete(student.id)}
-                  >
-                    Delete
-                  </Button>
+                  <Box display="flex" gap={1}>
+                    <Button
+                      variant="outlined"
+                      color="info"
+                      startIcon={<FaEye />}
+                      onClick={() => handleView(student)} // Open view modal on view button click
+                    >
+                      View
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="warning"
+                      startIcon={<FaEdit />}
+                      onClick={() => handleEdit(student)} // Open edit modal on edit button click
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      startIcon={<FaTrash />}
+                      onClick={() => handleDelete(student.id)}
+                    >
+                      Delete
+                    </Button>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}

@@ -1,52 +1,49 @@
-/* Page container */
-.edit-student-page {
-    border-radius: 10px;
-  }
-  
-  /* Page Title */
-  .edit-student-page__title {
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  /* Page Content - Input Fields */
-  .edit-student-page__content {
+.edit-student-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
     padding: 20px;
+    width: 500px;
+    max-height: 80%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
   }
   
-  .edit-student-page__input {
-    margin-bottom: 20px;
+  .edit-student-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
-  /* Button styles */
-  .edit-student-page__button {
-    font-weight: bold;
-    font-size: 16px;
+  .edit-student-modal__content {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-bottom: 20px;
   }
   
-  /* Update Button */
-  .edit-student-page__button--update {
-    background-color: #1976d2;
-    color: white;
+  .edit-student-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
   }
   
-  .edit-student-page__button--update:hover {
-    background-color: #1565c0;
+  .close-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 20px;
   }
   
-  /* Cancel Button */
-  .edit-student-page__button--cancel {
-    border: 1px solid #757575;
-    color: #757575;
+  button {
+    width: 100px;
   }
   
-  .edit-student-page__button--cancel:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .edit-student-page__button--cancel:focus {
-    background-color: #f1f1f1;
-    border: 1px solid #1976d2;
+  .text-field {
+    margin-bottom: 15px;
   }
   
