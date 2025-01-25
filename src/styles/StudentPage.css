@@ -1,0 +1,115 @@
+/* Main container for the student list page */
+.student-list-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  /* Title of the student list page */
+  .student-list-container__title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Button container for Logout and Add Student */
+  .student-list-container__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* General button styles */
+  .student-list-container__button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Primary button style (Add Student) */
+  .student-list-container__button--primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  .student-list-container__button--primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Danger button style (Logout) */
+  .student-list-container__button--danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .student-list-container__button--danger:hover {
+    background-color: #c82333;
+  }
+  
+  /* Table styling */
+  .student-list-container__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Table header styling */
+  .student-list-container__table th,
+  .student-list-container__table td {
+    padding: 12px 20px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  /* Table header background */
+  .student-list-container__table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  /* Zebra striping for table rows */
+  .student-list-container__table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover effect for table rows */
+  .student-list-container__table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Icon button styles (view, edit, delete) */
+  .student-list-container__icon {
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  /* Specific icon styles */
+  .student-list-container__icon--view {
+    color: #17a2b8;
+  }
+  
+  .student-list-container__icon--view:hover {
+    color: #138496;
+  }
+  
+  .student-list-container__icon--edit {
+    color: #ffc107;
+  }
+  
+  .student-list-container__icon--edit:hover {
+    color: #e0a800;
+  }
+  
+  .student-list-container__icon--delete {
+    color: #dc3545;
+  }
+  
+  .student-list-container__icon--delete:hover {
+    color: #c82333;
+  }
+  

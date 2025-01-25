@@ -165,7 +165,7 @@ import { signOut } from 'firebase/auth';
 import { db, auth } from '../firebaseConfig';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
-import '../styles/styles.css'; // Import the styles
+import '../styles/StudentPage.css'; // Import StudentsPage styles
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([]);
@@ -195,25 +195,26 @@ const StudentsPage = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
 
   return (
-    <div>
-      <h2>Students List</h2>
-      <div style={{ marginBottom: '20px' }}>
-        <button className="button button-danger" onClick={handleLogout}>
-          Logout
-        </button>
-        <button className="button button-primary" onClick={() => navigate('/add-student')}>
+    <div className="student-list-container">
+      <h2 className="student-list-container__title">Students List</h2>
+      <div className="student-list-container__buttons">
+      <button className="student-list-container__button student-list-container__button--primary" onClick={() => navigate('/add-student')}>
           Add Student
         </button>
+        <button className="student-list-container__button student-list-container__button--danger" onClick={handleLogout}>
+          Logout
+        </button>
+        
       </div>
 
-      <table className="table">
+      <table className="student-list-container__table">
         <thead>
           <tr>
             <th>ID</th>
@@ -234,15 +235,15 @@ const StudentsPage = () => {
               <td>{student.rollNumber}</td>
               <td>
                 <FaEye
-                  style={{ marginRight: '10px', cursor: 'pointer' }}
+                  className="student-list-container__icon student-list-container__icon--view"
                   onClick={() => alert(`View details for ${student.name}`)}
                 />
                 <FaEdit
-                  style={{ marginRight: '10px', cursor: 'pointer' }}
+                  className="student-list-container__icon student-list-container__icon--edit"
                   onClick={() => alert(`Edit details for ${student.name}`)}
                 />
                 <FaTrash
-                  style={{ cursor: 'pointer' }}
+                  className="student-list-container__icon student-list-container__icon--delete"
                   onClick={() => handleDelete(student.id)}
                 />
               </td>
