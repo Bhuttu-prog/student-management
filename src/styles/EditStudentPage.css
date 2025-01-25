@@ -1,0 +1,52 @@
+/* Page container */
+.edit-student-page {
+    border-radius: 10px;
+  }
+  
+  /* Page Title */
+  .edit-student-page__title {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Page Content - Input Fields */
+  .edit-student-page__content {
+    padding: 20px;
+  }
+  
+  .edit-student-page__input {
+    margin-bottom: 20px;
+  }
+  
+  /* Button styles */
+  .edit-student-page__button {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Update Button */
+  .edit-student-page__button--update {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  .edit-student-page__button--update:hover {
+    background-color: #1565c0;
+  }
+  
+  /* Cancel Button */
+  .edit-student-page__button--cancel {
+    border: 1px solid #757575;
+    color: #757575;
+  }
+  
+  .edit-student-page__button--cancel:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .edit-student-page__button--cancel:focus {
+    background-color: #f1f1f1;
+    border: 1px solid #1976d2;
+  }
+  

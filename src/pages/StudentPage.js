@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../firebaseConfig';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Logout } from '@mui/icons-material';
+import EditStudentPage from './EditStudentPage'; // Import the EditStudentPage modal
 import '../styles/StudentPage.css'; // Custom Styles (if any)
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([]);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,6 +42,24 @@ const StudentsPage = () => {
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
+    }
+  };
+
+  const handleEdit = (student) => {
+    setSelectedStudent(student);
+    setOpenEditModal(true); // Open the edit modal when edit button is clicked
+  };
+
+  const handleUpdateStudent = async (updatedStudent) => {
+    try {
+      const studentRef = doc(db, 'students', updatedStudent.id);
+      await updateDoc(studentRef, updatedStudent);
+      setStudents((prev) =>
+        prev.map((student) => (student.id === updatedStudent.id ? updatedStudent : student))
+      );
+      setOpenEditModal(false); // Close the edit modal after updating
+    } catch (error) {
+      console.error('Error updating student:', error);
     }
   };
 
@@ -96,7 +117,7 @@ const StudentsPage = () => {
                     variant="outlined"
                     color="warning"
                     startIcon={<FaEdit />}
-                    onClick={() => alert(`Edit details for ${student.name}`)}
+                    onClick={() => handleEdit(student)} // Open edit modal on edit button click
                   >
                     Edit
                   </Button>
@@ -114,6 +135,16 @@ const StudentsPage = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Edit Student Modal (Page) */}
+      {selectedStudent && (
+        <EditStudentPage
+          open={openEditModal}
+          onClose={() => setOpenEditModal(false)} // Close modal when cancel button is clicked
+          student={selectedStudent}
+          onUpdate={handleUpdateStudent} // Pass the handleUpdateStudent function to update the student
+        />
+      )}
     </div>
   );
 };
