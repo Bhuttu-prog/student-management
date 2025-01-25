@@ -165,12 +165,12 @@ import { signOut } from 'firebase/auth';
 import { db, auth } from '../firebaseConfig';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
+import '../styles/styles.css'; // Import the styles
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch students data from Firestore
   useEffect(() => {
     const fetchStudents = async () => {
       const studentsCollection = collection(db, 'students');
@@ -182,7 +182,6 @@ const StudentsPage = () => {
     fetchStudents();
   }, []);
 
-  // Delete student by ID
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, 'students', id));
@@ -193,11 +192,10 @@ const StudentsPage = () => {
     }
   };
 
-  // Logout function
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Firebase sign out
-      navigate('/login'); // Redirect to the Login page
+      await signOut(auth);
+      navigate('/login');
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -206,42 +204,16 @@ const StudentsPage = () => {
   return (
     <div>
       <h2>Students List</h2>
+      <div style={{ marginBottom: '20px' }}>
+        <button className="button button-danger" onClick={handleLogout}>
+          Logout
+        </button>
+        <button className="button button-primary" onClick={() => navigate('/add-student')}>
+          Add Student
+        </button>
+      </div>
 
-      {/* Logout Button */}
-      <button
-        style={{
-          float: 'right',
-          marginBottom: '20px',
-          padding: '10px 15px',
-          backgroundColor: 'red',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
-
-      {/* Add Student Button */}
-      <button
-        onClick={() => navigate('/add-student')}
-        style={{
-          padding: '10px 15px',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          marginBottom: '20px',
-        }}
-      >
-        Add Student
-      </button>
-
-      {/* Students Table */}
-      <table border="1" width="100%" style={{ textAlign: 'left', borderCollapse: 'collapse' }}>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -283,4 +255,3 @@ const StudentsPage = () => {
 };
 
 export default StudentsPage;
-
