@@ -8,12 +8,14 @@ import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRo
 import { Logout } from '@mui/icons-material';
 import EditStudentPage from './EditStudentPage'; // Import the EditStudentPage modal
 import ViewStudentPage from './ViewStudentPage'; // Import the ViewStudentPage modal
+import AddStudentPage from './AddStudentPage'; // Import the AddStudentPage modal
 import '../styles/StudentPage.css'; // Custom Styles
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([]);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false); // State for View Modal
+  const [openAddModal, setOpenAddModal] = useState(false); // State for Add Student Modal
   const [selectedStudent, setSelectedStudent] = useState(null);
   const navigate = useNavigate();
 
@@ -70,6 +72,11 @@ const StudentsPage = () => {
     }
   };
 
+  // Function to handle the closing of the Add Student modal
+  const handleAddStudentClose = () => {
+    setOpenAddModal(false); // Close the add student modal
+  };
+
   return (
     <div className="student-list-container">
       <h2 className="student-list-container__title">Students List</h2>
@@ -85,7 +92,7 @@ const StudentsPage = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => navigate('/add-student')}
+          onClick={() => setOpenAddModal(true)} // Open the Add Student modal
         >
           Add Student
         </Button>
@@ -163,6 +170,9 @@ const StudentsPage = () => {
           student={selectedStudent}
         />
       )}
+
+      {/* Add Student Modal */}
+      <AddStudentPage open={openAddModal} onClose={handleAddStudentClose} />
     </div>
   );
 };

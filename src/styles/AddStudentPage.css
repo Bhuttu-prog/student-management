@@ -1,144 +1,63 @@
-/* General Container Styling */
-.add-student-container {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-  }
-  
-  .add-student-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .add-student-header .MuiTypography-h4 {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .add-student-buttons {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .add-student-buttons .MuiButton-root {
-    font-size: 14px;
-    font-weight: 600;
-  }
-  
-  .add-student-container .MuiContainer-root {
-    padding: 20px;
-  }
-  
-  /* Form Elements */
-  .add-student-container form {
-    display: block;
-  }
-  
-  .MuiTextField-root {
-    margin-bottom: 15px;
-  }
-  
-  /* Material UI button sizes and custom button styling */
-  .MuiButton-contained {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 4px;
-  }
-  
-  .add-student-buttons .MuiButton-root {
-    min-width: 150px;
-  }
-  
-  .MuiButton-containedPrimary {
-    background-color: #1976d2; /* Blue */
-  }
-  
-  .MuiButton-containedSecondary {
-    background-color: #f44336; /* Red */
-  }
-  
-  .MuiButton-contained:hover {
-    background-color: #1565c0; /* Darker Blue for hover */
-  }
-  
-  .MuiButton-outlinedSecondary {
-    color: #f44336;
-    border-color: #f44336;
-  }
-  
-  .MuiButton-outlinedSecondary:hover {
-    background-color: rgba(244, 67, 54, 0.1);
-  }
-  
-  /* Grid system adjustments */
-  .MuiGrid-container {
-    margin-top: 20px;
-  }
-  
-  .MuiGrid-item {
-    margin-bottom: 20px;
-  }
-  
-  /* Error handling and custom helper text */
-  .MuiFormHelperText-root {
-    font-size: 12px;
-    color: #d32f2f;
-    margin-top: 5px;
-  }
-  
-  /* Custom input field styling */
-  .MuiTextField-root input {
-    font-size: 16px;
-  }
-  
-  /* Typography styling for heading */
-  .add-student-header .MuiTypography-root {
-    font-size: 32px;
-    color: #333;
-    font-weight: 700;
-  }
-  
-  /* Container and form layout */
-  .add-student-container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 30px;
-  }
-  
-  .add-student-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* Make sure the form is responsive */
-  @media (max-width: 600px) {
-    .add-student-container {
-      padding: 15px;
-    }
-  
-    .add-student-header {
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-start;
-    }
-  
-    .add-student-buttons {
-      flex-direction: column;
-    }
-  
-    .add-student-buttons .MuiButton-root {
-      min-width: 100%;
-    }
-  
-    .MuiTextField-root {
-      margin-bottom: 10px;
-    }
-  }
-  
+/* Add Student Modal Styles */
+.add-student-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  width: 500px;
+  max-height: 80%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-student-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-student-modal__content {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-bottom: 20px;
+}
+
+.add-student-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 20px;
+}
+
+button {
+  width: 100px;
+}
+
+.add-student-modal__input {
+  margin-bottom: 15px;
+}
+
+.add-student-modal__actions button {
+  width: 100px;
+}
+
+.add-student-modal__actions button:nth-child(1) {
+  background-color: #f44336; /* Red color for Cancel */
+  color: #fff;
+}
+
+.add-student-modal__actions button:nth-child(2) {
+  background-color: #4caf50; /* Green color for Add */
+  color: #fff;
+}
