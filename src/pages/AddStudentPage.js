@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Box, Button, TextField, MenuItem } from '@mui/material';
+import { Modal, Box, Button, TextField, MenuItem, FormHelperText } from '@mui/material';
 import { FaTimes } from 'react-icons/fa';
 import { db } from '../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
@@ -19,7 +19,68 @@ const AddStudentPage = ({ open, onClose }) => {
   const [gender, setGender] = useState('');
   const [dob, setDob] = useState('');
 
+  const [errors, setErrors] = useState({}); // Object to store validation errors
+
+  const validateFields = () => {
+    let validationErrors = {};
+    let isValid = true;
+
+    if (!name) {
+      validationErrors.name = 'Name is required';
+      isValid = false;
+    }
+    if (!classValue) {
+      validationErrors.classValue = 'Class is required';
+      isValid = false;
+    }
+    if (!section) {
+      validationErrors.section = 'Section is required';
+      isValid = false;
+    }
+    if (!rollNumber) {
+      validationErrors.rollNumber = 'Roll number is required';
+      isValid = false;
+    }
+    if (!age || isNaN(age) || age <= 0) {
+      validationErrors.age = 'Valid age is required';
+      isValid = false;
+    }
+    if (!address) {
+      validationErrors.address = 'Address is required';
+      isValid = false;
+    }
+    if (!phone || !/^\d{10}$/.test(phone)) {
+      validationErrors.phone = 'Phone number must be 10 digits';
+      isValid = false;
+    }
+    if (!parentName) {
+      validationErrors.parentName = 'Parent name is required';
+      isValid = false;
+    }
+    if (!parentPhone || !/^\d{10}$/.test(parentPhone)) {
+      validationErrors.parentPhone = 'Parent phone number must be 10 digits';
+      isValid = false;
+    }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      validationErrors.email = 'Valid email is required';
+      isValid = false;
+    }
+    if (!gender) {
+      validationErrors.gender = 'Gender is required';
+      isValid = false;
+    }
+    if (!dob) {
+      validationErrors.dob = 'Date of birth is required';
+      isValid = false;
+    }
+
+    setErrors(validationErrors);
+    return isValid;
+  };
+
   const handleAddStudent = async () => {
+    if (!validateFields()) return; // Only proceed if the form is valid
+
     const newStudent = {
       name,
       class: classValue,
@@ -64,6 +125,8 @@ const AddStudentPage = ({ open, onClose }) => {
             onChange={(e) => setName(e.target.value)}
             margin="normal"
             className="add-student-modal__input"
+            error={!!errors.name}
+            helperText={errors.name}
           />
           <TextField
             label="Class"
@@ -73,6 +136,8 @@ const AddStudentPage = ({ open, onClose }) => {
             onChange={(e) => setClassValue(e.target.value)}
             margin="normal"
             className="add-student-modal__input"
+            error={!!errors.classValue}
+            helperText={errors.classValue}
           />
           <TextField
             label="Section"
@@ -82,6 +147,8 @@ const AddStudentPage = ({ open, onClose }) => {
             onChange={(e) => setSection(e.target.value)}
             margin="normal"
             className="add-student-modal__input"
+            error={!!errors.section}
+            helperText={errors.section}
           />
           <TextField
             label="Roll Number"
@@ -91,6 +158,8 @@ const AddStudentPage = ({ open, onClose }) => {
             onChange={(e) => setRollNumber(e.target.value)}
             margin="normal"
             className="add-student-modal__input"
+            error={!!errors.rollNumber}
+            helperText={errors.rollNumber}
           />
           <TextField
             label="Age"
@@ -101,6 +170,8 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             type="number"
+            error={!!errors.age}
+            helperText={errors.age}
           />
           <TextField
             label="Address"
@@ -112,6 +183,8 @@ const AddStudentPage = ({ open, onClose }) => {
             className="add-student-modal__input"
             multiline
             rows={4}
+            error={!!errors.address}
+            helperText={errors.address}
           />
           <TextField
             label="Phone"
@@ -122,6 +195,8 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             type="tel"
+            error={!!errors.phone}
+            helperText={errors.phone}
           />
           <TextField
             label="Parent Name"
@@ -131,6 +206,8 @@ const AddStudentPage = ({ open, onClose }) => {
             onChange={(e) => setParentName(e.target.value)}
             margin="normal"
             className="add-student-modal__input"
+            error={!!errors.parentName}
+            helperText={errors.parentName}
           />
           <TextField
             label="Parent Phone"
@@ -141,6 +218,8 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             type="tel"
+            error={!!errors.parentPhone}
+            helperText={errors.parentPhone}
           />
           <TextField
             label="Email"
@@ -151,6 +230,8 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             type="email"
+            error={!!errors.email}
+            helperText={errors.email}
           />
           <TextField
             label="Gender"
@@ -161,6 +242,8 @@ const AddStudentPage = ({ open, onClose }) => {
             margin="normal"
             className="add-student-modal__input"
             select
+            error={!!errors.gender}
+            helperText={errors.gender}
           >
             <MenuItem value="Male">Male</MenuItem>
             <MenuItem value="Female">Female</MenuItem>
@@ -178,6 +261,8 @@ const AddStudentPage = ({ open, onClose }) => {
             InputLabelProps={{
               shrink: true,
             }}
+            error={!!errors.dob}
+            helperText={errors.dob}
           />
         </div>
         <div className="add-student-modal__actions">
